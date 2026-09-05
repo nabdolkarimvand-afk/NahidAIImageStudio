@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout android:padding="18dp" android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content">
+<TextView android:text="Nahid AI Image Studio" android:textSize="26sp" android:textStyle="bold" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<TextView android:text="Offline • Free • Local Stable Diffusion 1.5" android:layout_marginTop="4dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/prompt" android:hint="Prompt (English works best)" android:gravity="top" android:minLines="4" android:inputType="textMultiLine" android:layout_marginTop="16dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/negative" android:hint="Negative prompt (optional)" android:gravity="top" android:minLines="2" android:inputType="textMultiLine" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<TextView android:text="1) Image size — choose BEFORE generating" android:textStyle="bold" android:layout_marginTop="14dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<Spinner android:id="@+id/sizePreset" android:layout_marginTop="4dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+<EditText android:id="@+id/width" android:text="512" android:hint="Width" android:inputType="number" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/height" android:text="512" android:hint="Height" android:inputType="number" android:layout_weight="1" android:layout_marginStart="8dp" android:layout_width="0dp" android:layout_height="wrap_content"/>
+</LinearLayout>
+<LinearLayout android:orientation="horizontal" android:layout_marginTop="4dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+<EditText android:id="@+id/steps" android:text="12" android:hint="Steps" android:inputType="number" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/cfg" android:text="7" android:hint="CFG" android:inputType="numberDecimal" android:layout_weight="1" android:layout_marginStart="8dp" android:layout_width="0dp" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/batch" android:text="1" android:hint="Batch" android:inputType="number" android:layout_weight="1" android:layout_marginStart="8dp" android:layout_width="0dp" android:layout_height="wrap_content"/>
+</LinearLayout>
+<LinearLayout android:orientation="horizontal" android:layout_width="match_parent" android:layout_height="wrap_content">
+<EditText android:id="@+id/seed" android:text="-1" android:hint="Seed (-1=random)" android:inputType="numberSigned" android:layout_weight="1" android:layout_width="0dp" android:layout_height="wrap_content"/>
+<Button android:id="@+id/randomSeed" android:text="Random" android:layout_marginStart="8dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+</LinearLayout>
+<Button android:id="@+id/downloadModel" android:text="2) Download recommended model (~1.63 GB)" android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<Button android:id="@+id/modelButton" android:text="Choose model (.gguf / .safetensors / .ckpt)" android:layout_marginTop="10dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<TextView android:id="@+id/downloadText" android:text="Recommended: DreamShaper 7 + LCM Q4_0" android:padding="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<TextView android:id="@+id/modelText" android:text="No model selected" android:padding="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<Button android:id="@+id/generate" android:text="3) GENERATE IMAGE" android:textStyle="bold" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<ProgressBar android:id="@+id/progress" android:visibility="gone" android:layout_gravity="center" android:layout_marginTop="12dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+<TextView android:id="@+id/status" android:text="Preparing local engine…" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<ImageView android:id="@+id/result" android:adjustViewBounds="true" android:scaleType="fitCenter" android:layout_marginTop="12dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<Button android:id="@+id/gallery" android:text="Open Gallery" android:layout_marginTop="8dp" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>
+</ScrollView>
