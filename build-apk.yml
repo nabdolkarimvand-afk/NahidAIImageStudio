@@ -1,0 +1,46 @@
+name: Build Nahid AI Image Studio APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout app
+        uses: actions/checkout@v4
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android NDK/CMake
+        run: sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk;26.3.11579264" "cmake;3.22.1"
+      - name: Set up Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Build stable-diffusion.cpp (ARM64 CPU)
+        shell: bash
+        run: |
+          git clone --recursive --depth 1 https://github.com/leejet/stable-diffusion.cpp.git engine-src
+          cmake -S engine-src -B engine-src/build-android -G Ninja \
+            -DCMAKE_TOOLCHAIN_FILE="$ANDROID_HOME/ndk/26.3.11579264/build/cmake/android.toolchain.cmake" \
+            -DANDROID_ABI=arm64-v8a -DANDROID_PLATFORM=android-28 \
+            -DANDROID_STL=c++_static -DGGML_OPENMP=OFF -DSD_WEBP=OFF -DSD_WEBM=OFF \
+            -DCMAKE_BUILD_TYPE=Release
+          cmake --build engine-src/build-android --target sd-cli -j2
+          mkdir -p app/src/main/assets/engine/arm64-v8a
+          cp engine-src/build-android/bin/sd-cli app/src/main/assets/engine/arm64-v8a/sd-cli
+          chmod +x app/src/main/assets/engine/arm64-v8a/sd-cli
+      - name: Build APK
+        run: gradle --no-daemon assembleRelease
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Nahid-AI-Image-Studio-release
+          path: app/build/outputs/apk/release/*.apk
